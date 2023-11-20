@@ -1,7 +1,8 @@
 <?php
-
-
-
+require 'connection.php';
+$query = "SELECT * FROM post_it ORDER BY created_at DESC";
+$response = $bdd->query($query);
+$datas = $response->fetchAll();
 ?>
 
 
@@ -27,97 +28,40 @@
 </head>
 
 <body>
-    <header>
-        <div class="container">
-            <nav>
-                <a href="#" title="Home" id="memento">Memento</a>
-                <div id="nav-second">
-                    <a href="login.php" class="links" title="Login">Login</a>
-                    <a href="register.php" title="Register" class="links">Register</a>
-                </div>
-            </nav>
-            <hr>
-        </div>
-    </header>
+    <?php include 'header.php';
+    ?>
     <main>
         <div class="container">
             <div id="title">
                 <h1>Memento</h1>
-                <button class="btn" href="add.php">Add Postit</button>
+                <button class="btn" onclick="window.location.href = 'add.php';">Add Post it</button>
             </div>
-            <div class="postits">
-                <article class="card">
-                    <div class="card-title">
-                        <h3>PDO 2</h3>
-                        <i class="fa-regular fa-circle-xmark"></i>
-                    </div>
-                    <div class="card-body">
+            <div class="post-its">
 
-                        <p>Session<br />
-                            empty && isset<br />
-                            filter_var<br />
-                            Exo 2.X<br />
-                            File Upload<br />
-                            Composer<br />
-                            PHP Debug</p>
-                        <p>17/11/2023</p>
 
-                    </div>
+                <?php foreach ($datas as $data) { ?>
+                    <article class="card" style="background-color: <?= $data['color'] ?>;">
+                        <div class="card-title">
+                            <h3>
+                                <?= $data['title'] ?>
+                            </h3>
+                            <a href="remove.php?id=<?= $data['id'] ?>" class="delete" title="<?= $data['title'] ?>"><i
+                                    class="fa-regular fa-circle-xmark"></i></a>
+                        </div>
+                        <div class="card-body">
 
-                </article>
-                <article class="card">
-                    <div class="card-title">
-                        <h3>PDO 2</h3>
-                        <i class="fa-regular fa-circle-xmark"></i>
-                    </div>
-                    <div class="card-body">
-                        <p>Session<br />
-                            empty && isset<br />
-                            filter_var<br />
-                            Exo 2.X<br />
-                            File Upload<br />
-                            Composer<br />
-                            PHP Debug</p>
-                        <p>17/11/2023</p>
-                    </div>
+                            <p>
+                                <?= $data['content'] ?>
+                            </p>
+                            <p>
+                                <?= $data['date'] ?>
+                            </p>
 
-                </article>
-                <article class="card">
-                    <div class="card-title">
-                        <h3>PDO 2</h3>
-                        <i class="fa-regular fa-circle-xmark"></i>
-                    </div>
-                    <div class="card-body">
-                        <p>Session<br />
-                            empty && isset<br />
-                            filter_var<br />
-                            Exo 2.X<br />
-                            File Upload<br />
-                            Composer<br />
-                            PHP Debug</p>
-                        <p>17/11/2023</p>
-                    </div>
+                        </div>
 
-                </article>
-                <article class="card">
-                    <div class="card-title">
-                        <h3>PDO 2</h3>
-                        <i class="fa-regular fa-circle-xmark"></i>
-                    </div>
-                    <div class="card-body">
-                        <p>Session<br />
-                            empty && isset<br />
-                            filter_var<br />
-                            Exo 2.X<br />
-                            File Upload<br />
-                            Composer<br />
-                            PHP Debug</p>
-                        <p>17/11/2023</p>
-                    </div>
-
-                </article>
+                    </article>
+                <?php } ?>
             </div>
-        </div>
     </main>
 
 </body>

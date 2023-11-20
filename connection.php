@@ -1,6 +1,6 @@
 <?php try {
     $bdd = new PDO(
-        'mysql:host=localhost;dbname=codastudent2023;charset=utf8',
+        'mysql:host=localhost;dbname=memento;charset=utf8',
         'root',
         'root'
     );

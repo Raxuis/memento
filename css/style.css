@@ -67,14 +67,14 @@ button {
   box-shadow: 0 2px 0 -2px #f85959, 0 8px 0 -4px #171717,
     0 12px 10px -3px #171717;
 }
-.postits {
+.post-its {
   margin: 50px;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  column-gap: 30px;
   flex-wrap: wrap;
 }
 .card {
-  background-color: #ff90ff;
   padding: 20px 30px;
   width: 300px;
   -webkit-box-shadow: 14px 10px 21px -7px rgba(66, 68, 90, 1);
@@ -94,4 +94,11 @@ button {
   font-family: "Glass Antiqua", cursive;
   list-style: none;
   font-size: 1.2em;
+}
+.form {
+  display: flex;
+  flex-direction: column;
+}
+.delete {
+  color: black;
 }
