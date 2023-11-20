@@ -1,0 +1,97 @@
+* {
+  font-family: "Noto Sans Glagolitic", sans-serif;
+  margin: 0;
+  padding: 0;
+}
+.container {
+  width: 80%;
+  margin: 0 auto;
+}
+nav {
+  padding: 15px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+h1 {
+  font-size: 2.5em;
+  font-weight: bold;
+}
+#memento {
+  font-size: 1.5em;
+  color: black;
+  text-decoration: none;
+}
+.links {
+  text-decoration: none;
+  font-size: 1.2em;
+}
+#nav-second {
+  display: flex;
+  justify-content: space-between;
+  width: 10rem;
+}
+#title {
+  padding-top: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+button {
+  background-color: blue;
+  color: white;
+  margin-top: 10px;
+}
+.btn {
+  width: 130px;
+  height: 40px;
+  font-size: 1.1em;
+  cursor: pointer;
+  background-color: #0070ff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  transition: all 0.4s;
+}
+
+.btn:hover {
+  border-radius: 5px;
+  transform: translateY(-10px);
+  box-shadow: 0 7px 0 -2px #f85959, 0 15px 0 -4px #171717,
+    0 16px 10px -3px #171717;
+}
+
+.btn:active {
+  transition: all 0.2s;
+  transform: translateY(-5px);
+  box-shadow: 0 2px 0 -2px #f85959, 0 8px 0 -4px #171717,
+    0 12px 10px -3px #171717;
+}
+.postits {
+  margin: 50px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.card {
+  background-color: #ff90ff;
+  padding: 20px 30px;
+  width: 300px;
+  -webkit-box-shadow: 14px 10px 21px -7px rgba(66, 68, 90, 1);
+  -moz-box-shadow: 14px 10px 21px -7px rgba(66, 68, 90, 1);
+  box-shadow: 14px 10px 21px -7px rgba(66, 68, 90, 1);
+  margin-bottom: 50px;
+}
+.card-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.card-title h3 {
+  font-size: xx-large;
+}
+.card-body p {
+  font-family: "Glass Antiqua", cursive;
+  list-style: none;
+  font-size: 1.2em;
+}
