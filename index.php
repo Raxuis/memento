@@ -3,6 +3,7 @@ require 'connection.php';
 $query = "SELECT * FROM post_it ORDER BY created_at DESC";
 $response = $bdd->query($query);
 $datas = $response->fetchAll();
+session_start();
 ?>
 
 
@@ -30,15 +31,13 @@ $datas = $response->fetchAll();
 <body>
     <?php include 'header.php';
     ?>
-    <main>
+    <?php if ($_SESSION['logged']) { ?>
         <div class="container">
             <div id="title">
                 <h1>Memento</h1>
                 <button class="btn" onclick="window.location.href = 'add.php';">Add Post it</button>
             </div>
             <div class="post-its">
-
-
                 <?php foreach ($datas as $data) { ?>
                     <article class="card" style="background-color: <?= $data['color'] ?>;">
                         <div class="card-title">
@@ -49,19 +48,24 @@ $datas = $response->fetchAll();
                                     class="fa-regular fa-circle-xmark"></i></a>
                         </div>
                         <div class="card-body">
-
                             <p>
                                 <?= $data['content'] ?>
                             </p>
                             <p>
                                 <?= $data['date'] ?>
                             </p>
-
                         </div>
-
                     </article>
                 <?php } ?>
             </div>
+        </div>
+    <?php } else { ?>
+        <div class="container" id="not-connected">
+            <p>Vous n'êtes pas connecté, connectez-vous pour pouvoir créer des post-its.</p>
+        </div>
+    <?php } ?>
+
+    </div>
     </main>
 
 </body>

@@ -2,49 +2,39 @@
 session_start();
 
 require 'connection.php';
-$_SESSION['logged'] = false;
+$_SESSION['registered'] = false;
 if (!empty($_POST)) {
     if (strcmp($_POST['password'], $_POST['password_confirmation']) !== 0) {
         echo 'Vos mots de passe ne correspondent pas';
-    } elseif (empty($_POST['name'])) {
+    } elseif (empty($_POST['username'])) {
         echo 'Veuillez renseigner votre nom';
-    } elseif (empty($_POST['login'])) {
+    } elseif (empty($_POST['email'])) {
         echo 'Veuillez renseigner votre email';
     } elseif (empty($_POST['password']) || empty($_POST['password_confirmation'])) {
         echo 'Veuillez renseigner votre mot de passe';
-    } elseif (!filter_var($_POST['login'], FILTER_VALIDATE_EMAIL)) {
+    } elseif (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
         echo 'Veuillez rentrer une adresse mail valide';
     } elseif (strlen($_POST['password']) < 8 || strlen($_POST['password_confirmation']) < 8) {
         echo "Veuillez rentrer un mot de passe d'au minimum 8 caractères";
     } else {
-        $_SESSION['logged'] = true;
-    }
-    $authorizedImages = ['image/png', 'image/jpeg'];
-
-    if ($_FILES['avatar']['error'] == 0 && $_FILES['avatar']['size'] <= 200 * 1024 && in_array($_FILES['avatar']['type'], $authorizedImages)) {
-        $extension = pathinfo($_FILES['avatar']['name'], PATHINFO_EXTENSION);
-        $newFileName = time() . '.' . $extension;
-        $destination = 'images/' . $newFileName;
-        move_uploaded_file($_FILES['avatar']['tmp_name'], $destination);
+        $_SESSION['registered'] = true;
     }
 
 }
-if ($_SESSION['logged']) {
+if ($_SESSION['registered']) {
     $_SESSION['user'] = [
-        'name' => $_POST['name'],
-        'login' => $_POST['login'],
-        'avatar' => $newFileName
+        'username' => $_POST['username'],
+        'email' => $_POST['email'],
     ];
     $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
-    $query = "INSERT INTO users (name, avatar, email, password) VALUES (:name, :avatar, :login,:password)";
+    $query = "INSERT INTO users (username, email, password) VALUES (:username, :email,:password)";
     $response = $bdd->prepare($query);
     $response->execute([
-        ':name' => $_SESSION['user']['name'],
-        ':avatar' => $_SESSION['user']['avatar'],
-        ':login' => $_SESSION['user']['login'],
+        ':username' => $_SESSION['user']['username'],
+        ':email' => $_SESSION['user']['email'],
         ':password' => $password
     ]);
-    header('location: profile.php');
+    header('location: index.php');
     exit();
 } ?>
 <!DOCTYPE html>
@@ -70,11 +60,11 @@ if ($_SESSION['logged']) {
     <?php include 'header.php'; ?>
     <div class="container">
         <form action="register.php" method="post" class="form">
-            <label for="name">Enter your name : </label>
-            <input type="text" id="name" name="name" autofocus />
+            <label for="username">Enter your username : </label>
+            <input type="text" id="username" name="username" autofocus />
 
-            <label for="login">Enter your email : </label>
-            <input type="login" id="login" name="login" />
+            <label for="email">Enter your email : </label>
+            <input type="email" id="email" name="email" />
             <label for="password">Enter your password : </label>
             <input type="password" id="password" name="password" />
             <label for="password_confirmation">Enter again your password : </label>

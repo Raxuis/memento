@@ -102,3 +102,7 @@ button {
 .delete {
   color: black;
 }
+#not-connected {
+  display: flex;
+  justify-content: center;
+}

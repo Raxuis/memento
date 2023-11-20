@@ -5,20 +5,20 @@ $_SESSION['logged'] = false;
 
 require 'connection.php';
 if (!empty($_POST)) {
-    if (empty($_POST['login'])) {
+    if (empty($_POST['email'])) {
         echo 'Veuillez renseigner votre email';
     } elseif (empty($_POST['password'])) {
         echo 'Veuillez renseigner votre mot de passe';
-    } elseif (!filter_var($_POST['login'], FILTER_VALIDATE_EMAIL)) {
+    } elseif (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
         echo 'Veuillez rentrer une adresse mail valide';
     } elseif (strlen(strtoupper($_POST['password'])) < 8) {
         echo "Veuillez rentrer un mot de passe d'au minimum 8 caractères";
     } else {
-        $_SESSION['registered'] = true;
+        $_SESSION['logged'] = true;
     }
 }
 
-if ($_SESSION['registered']) {
+if ($_SESSION['logged']) {
     $_SESSION['user'] = [
         'email' => $_POST['email'],
     ];
