@@ -4,7 +4,6 @@ $query = "SELECT * FROM post_it ORDER BY created_at DESC";
 $response = $bdd->query($query);
 $datas = $response->fetchAll();
 session_start();
-var_dump($_SESSION);
 ?>
 
 
