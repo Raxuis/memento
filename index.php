@@ -1,9 +1,20 @@
 <?php
 require 'connection.php';
-$query = "SELECT * FROM post_it ORDER BY created_at DESC";
-$response = $bdd->query($query);
-$datas = $response->fetchAll();
 session_start();
+if (isset($_SESSION['user']['email'])) {
+    $query = "SELECT p.id AS post_it_id, p.title, p.content, p.color, p.date, u.id AS user_id, u.email
+        FROM post_it as p 
+        INNER JOIN users as u ON p.user_id = u.id 
+        WHERE u.email=:email 
+        ORDER BY p.created_at DESC";
+    $response = $bdd->prepare($query);
+    $response->execute(
+        [
+            'email' => $_SESSION['user']['email'],
+        ]
+    );
+    $datas = $response->fetchAll();
+}
 ?>
 
 
@@ -45,8 +56,9 @@ session_start();
                                 <h3>
                                     <?= $data['title'] ?>
                                 </h3>
-                                <a href="remove.php?id=<?= $data['id'] ?>" class="delete" title="<?= $data['title'] ?>"><i
+                                <a href="remove.php?id=<?= $data['post_it_id'] ?>" class="delete" title="<?= $data['title'] ?>"><i
                                         class="fa-regular fa-circle-xmark"></i></a>
+
                             </div>
                             <div class="card-body">
                                 <p>

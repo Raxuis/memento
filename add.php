@@ -9,13 +9,22 @@ if (isset($_POST['token'])) {
             header($_SERVER['SERVER_PROTOCOL'] . ' 405 Method Not Allowed');
             exit;
         } else {
-            $query = "INSERT INTO post_it (title, content, date, color) VALUES (:title, :content, :date, :color)";
+            $queryId = "SELECT id FROM users WHERE email=:email";
+            $responseUser = $bdd->prepare($queryId);
+            $responseUser->execute(
+                [
+                    'email' => $_SESSION['user']['email'],
+                ]
+            );
+            $user_id = $responseUser->fetch();
+            $query = "INSERT INTO post_it (title, content, date, color, user_id) VALUES (:title, :content, :date, :color, :user_id)";
             $response = $bdd->prepare($query);
             $response->execute([
                 'title' => $_POST['title'],
                 'content' => $_POST['content'],
                 'date' => $_POST['date'],
                 'color' => $_POST['color'],
+                'user_id' => $user_id['id'],
             ]);
             header('location: index.php');
             exit();

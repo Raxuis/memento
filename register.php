@@ -66,9 +66,9 @@ if ($_SESSION['registered']) {
 
             <label for="email">Enter your email : </label>
             <input type="email" id="email" name="email" placeholder="Your email" />
-            <label for="password">Enter your password : </label>
+            <label for="password">Enter your password <span>(at least 8 characters):<span> </label>
             <input type="password" id="password" name="password" placeholder="Your password" />
-            <label for="password_confirmation">Enter again your password : </label>
+            <label for="password_confirmation">Enter again your password <span>(at least 8 characters):<span> </label>
             <input type="password" id="password_confirmation" name="password_confirmation"
                 placeholder="Enter your password again" />
             <button type="submit" value="Submit" class="submit">Register</button>
