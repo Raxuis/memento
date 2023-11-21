@@ -62,14 +62,16 @@ if ($_SESSION['logged']) {
 
     <?php include 'header.php'; ?>
     <div class="container">
-        <form action="login.php" method="post" class="form">
-            <label for="email">Enter your email : </label>
-            <input type="email" id="email" name="email" value="user@user.com" autofocus />
+        <div id="login">
+            <form action="login.php" method="post" class="form">
+                <label for="email">Enter your email : </label>
+                <input type="email" id="email" name="email" value="user@user.com" autofocus />
 
-            <label for="password">Enter your password : </label>
-            <input type="password" id="password" name="password" value="password" />
-            <input type="hidden" name="token" value="<?php echo $_SESSION['token'] ?? '' ?>">
-            <input type="submit" value="Submit" />
-        </form>
+                <label for="password">Enter your password : </label>
+                <input type="password" id="password" name="password" value="password" />
+                <input type="hidden" name="token" value="<?php echo $_SESSION['token'] ?? '' ?>">
+                <input type="submit" value="Submit" />
+            </form>
+        </div>
     </div>
 </body>

@@ -4,6 +4,7 @@ $query = "SELECT * FROM post_it ORDER BY created_at DESC";
 $response = $bdd->query($query);
 $datas = $response->fetchAll();
 session_start();
+var_dump($_SESSION);
 ?>
 
 
@@ -31,34 +32,40 @@ session_start();
 <body>
     <?php include 'header.php';
     ?>
-    <?php if ($_SESSION['logged']) { ?>
-        <div class="container">
-            <div id="title">
-                <h1>Memento</h1>
-                <button class="btn" onclick="window.location.href = 'add.php';">Add Post it</button>
+    <?php if (isset($_SESSION['logged'])) { ?>
+        <?php if ($_SESSION['logged']) { ?>
+            <div class="container">
+                <div id="title">
+                    <h1>Memento</h1>
+                    <button class="btn" onclick="window.location.href = 'add.php';">Add Post it</button>
+                </div>
+                <div class="post-its">
+                    <?php foreach ($datas as $data) { ?>
+                        <article class="card" style="background-color: <?= $data['color'] ?>;">
+                            <div class="card-title">
+                                <h3>
+                                    <?= $data['title'] ?>
+                                </h3>
+                                <a href="remove.php?id=<?= $data['id'] ?>" class="delete" title="<?= $data['title'] ?>"><i
+                                        class="fa-regular fa-circle-xmark"></i></a>
+                            </div>
+                            <div class="card-body">
+                                <p>
+                                    <?= nl2br($data['content']) ?>
+                                </p>
+                                <p>
+                                    <?= $data['date'] ?>
+                                </p>
+                            </div>
+                        </article>
+                    <?php } ?>
+                </div>
             </div>
-            <div class="post-its">
-                <?php foreach ($datas as $data) { ?>
-                    <article class="card" style="background-color: <?= $data['color'] ?>;">
-                        <div class="card-title">
-                            <h3>
-                                <?= $data['title'] ?>
-                            </h3>
-                            <a href="remove.php?id=<?= $data['id'] ?>" class="delete" title="<?= $data['title'] ?>"><i
-                                    class="fa-regular fa-circle-xmark"></i></a>
-                        </div>
-                        <div class="card-body">
-                            <p>
-                                <?= nl2br($data['content']) ?>
-                            </p>
-                            <p>
-                                <?= $data['date'] ?>
-                            </p>
-                        </div>
-                    </article>
-                <?php } ?>
+        <?php } else { ?>
+            <div class="container" id="not-connected">
+                <p>You are not connected, connect to be able to create post its.</p>
             </div>
-        </div>
+        <?php } ?>
     <?php } else { ?>
         <div class="container" id="not-connected">
             <p>You are not connected, connect to be able to create post its.</p>
