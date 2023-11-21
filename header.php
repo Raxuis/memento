@@ -11,7 +11,7 @@
                         <a href="login.php" class="links" title="Login">Login</a>
                         <a href="register.php" title="Register" class="links">Register</a>
                     <?php } else { ?>
-                        <a href="profile.php" class="links" title="Profile">Profile</a>
+                        <a href="profile.php" class="links" title="Profile" style="margin-left:-20px;">Profile</a>
                         <a href="disconnect.php" title="Register" class="links">Disconnect</a>
                     <?php }
                 } ?>

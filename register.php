@@ -60,16 +60,18 @@ if ($_SESSION['registered']) {
     <?php include 'header.php'; ?>
     <div class="container">
         <form action="register.php" method="post" class="form">
+            <h3>Register Here</h3>
             <label for="username">Enter your username : </label>
-            <input type="text" id="username" name="username" autofocus />
+            <input type="text" id="username" name="username" autofocus placeholder="Your username" />
 
             <label for="email">Enter your email : </label>
-            <input type="email" id="email" name="email" />
+            <input type="email" id="email" name="email" placeholder="Your email" />
             <label for="password">Enter your password : </label>
-            <input type="password" id="password" name="password" />
+            <input type="password" id="password" name="password" placeholder="Your password" />
             <label for="password_confirmation">Enter again your password : </label>
-            <input type="password" id="password_confirmation" name="password_confirmation" />
-            <input type="submit" value="Submit" />
+            <input type="password" id="password_confirmation" name="password_confirmation"
+                placeholder="Enter your password again" />
+            <button type="submit" value="Submit" class="submit">Register</button>
         </form>
     </div>
 </body>

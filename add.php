@@ -1,24 +1,25 @@
 <?php
 require 'connection.php';
 session_start();
-$token = $_POST['token'];
 
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (!$token || $token !== $_SESSION['token']) {
-        header($_SERVER['SERVER_PROTOCOL'] . ' 405 Method Not Allowed');
-        exit;
-    } else {
-        $query = "INSERT INTO post_it (title, content, date, color) VALUES (:title, :content, :date, :color)";
-        $response = $bdd->prepare($query);
-        echo $response->execute([
-            'title' => $_POST['title'],
-            'content' => $_POST['content'],
-            'date' => $_POST['date'],
-            'color' => $_POST['color'],
-        ]);
-        header('location: index.php');
-        exit();
+if (isset($_POST['token'])) {
+    $token = $_POST['token'];
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        if (!$token || $token !== $_SESSION['token']) {
+            header($_SERVER['SERVER_PROTOCOL'] . ' 405 Method Not Allowed');
+            exit;
+        } else {
+            $query = "INSERT INTO post_it (title, content, date, color) VALUES (:title, :content, :date, :color)";
+            $response = $bdd->prepare($query);
+            $response->execute([
+                'title' => $_POST['title'],
+                'content' => $_POST['content'],
+                'date' => $_POST['date'],
+                'color' => $_POST['color'],
+            ]);
+            header('location: index.php');
+            exit();
+        }
     }
 }
 
@@ -48,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     <?php include 'header.php'; ?>
     <div class="container">
-        <form action="add.php" method="post" class="form">
+        <form action="add.php" method="post">
             <label for="title">Add the title: </label>
             <input type="text" id="title" name="title" />
             <label for="content">Add the content: </label>
@@ -58,7 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <label for="color">Choose the color of the post it: </label>
             <input type="color" id="color" name="color" />
             <input type="hidden" name="token" value="<?php echo $_SESSION['token'] ?? '' ?>">
-            <input type="submit" value="Submit" />
+            <button type="submit" value="Submit" class="submit">Create a post it </button>
         </form>
     </div>
 </body>

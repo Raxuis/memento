@@ -25,17 +25,20 @@ if (isset($_GET['id'])) {
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Post it Deletion</title>
+        <link rel="stylesheet" href="css/style.css">
     </head>
 
     <body>
-        <form action="remove.php?id=<?= $id ?>" method="post">
-            <label for="delete">Are you sure you want to delete the post it?</label>
-            <input type="radio" id="yes" name="delete" value="1">
-            <label for="yes">Yes</label>
-            <input type="radio" id="no" name="delete" value="0">
-            <label for="no">No</label>
-            <input type="submit" value="Submit" />
-        </form>
+        <div class="container">
+            <form action="remove.php?id=<?= $id ?>" method="post">
+                <label for="delete">Are you sure you want to delete the post it?</label>
+                <label for="yes">Yes :</label>
+                <input type="radio" id="yes" name="delete" value="1" class="radio">
+                <label for="no">No : </label>
+                <input type="radio" id="no" name="delete" value="0" class="radio">
+                <input type="submit" value="Submit" class="submit" />
+            </form>
+        </div>
     </body>
 
     </html>

@@ -2,42 +2,42 @@
 session_start();
 
 $_SESSION['logged'] = false;
-
 require 'connection.php';
+
 if (!empty($_POST)) {
+    $query = "SELECT * FROM users WHERE email LIKE :email";
+    $response = $bdd->prepare($query);
+    $response->execute([
+        ':email' => $_POST['email']
+    ]);
+    $user = $response->fetch(PDO::FETCH_ASSOC);
     if (empty($_POST['email'])) {
-        echo 'Veuillez renseigner votre email';
+        echo 'Please enter your email';
     } elseif (empty($_POST['password'])) {
-        echo 'Veuillez renseigner votre mot de passe';
+        echo 'Please enter your password';
     } elseif (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
-        echo 'Veuillez rentrer une adresse mail valide';
+        echo 'Please enter a valid email address';
     } elseif (strlen(strtoupper($_POST['password'])) < 8) {
-        echo "Veuillez rentrer un mot de passe d'au minimum 8 caractères";
+        echo 'Please enter a password with at least 8 characters';
     } else {
-        $_SESSION['logged'] = true;
+        if ($user && password_verify($_POST['password'], $user['password'])) {
+            $_SESSION['token'] = md5(uniqid(mt_rand(), true));
+            $_SESSION['logged'] = true;
+            $_SESSION['user'] = [
+                'email' => $_POST['email'],
+            ];
+        } else {
+            echo 'Incorrect password';
+        }
     }
 }
 
 if ($_SESSION['logged']) {
-    $_SESSION['user'] = [
-        'email' => $_POST['email'],
-    ];
-    $query = "SELECT * FROM users WHERE email LIKE :email";
-    $response = $bdd->prepare($query);
-    $response->execute([
-        ':email' => $_SESSION['user']['email']
-    ]);
+    header('location:index.php');
+    exit();
+}
+?>
 
-    $user = $response->fetch(PDO::FETCH_ASSOC);
-
-    if ($user && password_verify($_POST['password'], $user['password'])) {
-        $_SESSION['token'] = md5(uniqid(mt_rand(), true));
-        header('location:index.php');
-        exit();
-    } else {
-        echo 'Mot de passe incorrect';
-    }
-} ?>
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -62,16 +62,16 @@ if ($_SESSION['logged']) {
 
     <?php include 'header.php'; ?>
     <div class="container">
-        <div id="login">
-            <form action="login.php" method="post" class="form">
-                <label for="email">Enter your email : </label>
-                <input type="email" id="email" name="email" value="user@user.com" autofocus />
+        <form action="login.php" method="post">
+            <h3>Login Here</h3>
+            <label for="email">Enter your email : </label>
+            <input type="email" id="email" name="email" autofocus placeholder="Email" id="username" />
 
-                <label for="password">Enter your password : </label>
-                <input type="password" id="password" name="password" value="password" />
-                <input type="hidden" name="token" value="<?php echo $_SESSION['token'] ?? '' ?>">
-                <input type="submit" value="Submit" />
-            </form>
-        </div>
+            <label for="password">Enter your password : </label>
+            <input type="password" id="password" name="password" placeholder="Password" id="password" />
+            <input type="hidden" name="token" value="<?php echo $_SESSION['token'] ?? '' ?>">
+            <button type="submit" value="Submit" class="submit">Log In</button>
+        </form>
+    </div>
     </div>
 </body>

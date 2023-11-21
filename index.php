@@ -34,7 +34,7 @@ session_start();
     <?php if (isset($_SESSION['logged'])) { ?>
         <?php if ($_SESSION['logged']) { ?>
             <div class="container">
-                <div id="title">
+                <div id="page-title">
                     <h1>Memento</h1>
                     <button class="btn" onclick="window.location.href = 'add.php';">Add Post it</button>
                 </div>
