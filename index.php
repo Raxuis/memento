@@ -49,7 +49,7 @@ session_start();
                         </div>
                         <div class="card-body">
                             <p>
-                                <?= $data['content'] ?>
+                                <?= nl2br($data['content']) ?>
                             </p>
                             <p>
                                 <?= $data['date'] ?>
@@ -61,7 +61,7 @@ session_start();
         </div>
     <?php } else { ?>
         <div class="container" id="not-connected">
-            <p>Vous n'êtes pas connecté, connectez-vous pour pouvoir créer des post-its.</p>
+            <p>You are not connected, connect to be able to create post its.</p>
         </div>
     <?php } ?>
 

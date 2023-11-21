@@ -1,19 +1,27 @@
 <?php
 require 'connection.php';
+session_start();
+$token = $_POST['token'];
+
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    var_dump($_POST);
-    $query = "INSERT INTO post_it (title, content, date, color) VALUES (:title, :content, :date, :color)";
-    $response = $bdd->prepare($query);
-    $response->execute([
-        'title' => $_POST['title'],
-        'content' => $_POST['content'],
-        'date' => $_POST['date'],
-        'color'=> $_POST['color'],
-    ]);
-    header('location: index.php');
-    exit();
+    if (!$token || $token !== $_SESSION['token']) {
+        header($_SERVER['SERVER_PROTOCOL'] . ' 405 Method Not Allowed');
+        exit;
+    } else {
+        $query = "INSERT INTO post_it (title, content, date, color) VALUES (:title, :content, :date, :color)";
+        $response = $bdd->prepare($query);
+        echo $response->execute([
+            'title' => $_POST['title'],
+            'content' => $_POST['content'],
+            'date' => $_POST['date'],
+            'color' => $_POST['color'],
+        ]);
+        header('location: index.php');
+        exit();
+    }
 }
+
 
 ?>
 
@@ -49,6 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <input type="date" id="date" name="date" />
             <label for="color">Choose the color of the post it: </label>
             <input type="color" id="color" name="color" />
+            <input type="hidden" name="token" value="<?php echo $_SESSION['token'] ?? '' ?>">
             <input type="submit" value="Submit" />
         </form>
     </div>

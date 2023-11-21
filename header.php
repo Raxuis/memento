@@ -8,8 +8,8 @@
                     <a href="register.php" title="Register" class="links">Register</a>
                 </div>
             <?php } else { ?>
-                <a href="profile.php" class="links" title="Profile">Mon profil</a>
-                <a href="disconnect.php" title="Register" class="links">Se déconnecter</a>
+                <a href="profile.php" class="links" title="Profile">Profile</a>
+                <a href="disconnect.php" title="Register" class="links">Disconnect</a>
             <?php } ?>
 
         </nav>

@@ -31,6 +31,7 @@ if ($_SESSION['logged']) {
     $user = $response->fetch(PDO::FETCH_ASSOC);
 
     if ($user && password_verify($_POST['password'], $user['password'])) {
+        $_SESSION['token'] = md5(uniqid(mt_rand(), true));
         header('location:index.php');
         exit();
     } else {
@@ -67,6 +68,7 @@ if ($_SESSION['logged']) {
 
             <label for="password">Enter your password : </label>
             <input type="password" id="password" name="password" value="password" />
+            <input type="hidden" name="token" value="<?php echo $_SESSION['token'] ?? '' ?>">
             <input type="submit" value="Submit" />
         </form>
     </div>
