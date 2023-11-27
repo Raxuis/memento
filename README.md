@@ -38,27 +38,18 @@
 
 ## :dart: About
 
-Describe your project
-
-## :sparkles: Features
-
-:heavy_check_mark: Feature 1;\
-:heavy_check_mark: Feature 2;\
-:heavy_check_mark: Feature 3;
+A memento made during a college class.
 
 ## :rocket: Technologies
 
 The following tools were used in this project:
 
-- [Expo](https://expo.io/)
-- [Node.js](https://nodejs.org/en/)
-- [React](https://pt-br.reactjs.org/)
-- [React Native](https://reactnative.dev/)
-- [TypeScript](https://www.typescriptlang.org/)
+- [HTML]
+- [PHP](https://www.php.net/)
 
 ## :white_check_mark: Requirements
 
-Before starting :checkered_flag:, you need to have [Git](https://git-scm.com) and [Node](https://nodejs.org/en/) installed.
+Before starting :checkered_flag:, you need to have uploaded the database and have installed MAMP, XAMP, LAMP or WAMP.
 
 ## :checkered_flag: Starting
 
@@ -69,13 +60,7 @@ $ git clone https://github.com/Raxuis/memento_project
 # Access
 $ cd memento_project
 
-# Install dependencies
-$ yarn
-
-# Run the project
-$ yarn start
-
-# The server will initialize in the <http://localhost:3000>
+$ Start with the MAMP, XAMP, LAMP or WAMP
 ```
 
 ## :memo: License
